@@ -47,10 +47,10 @@ print(Colorate.Horizontal(Colors.white_to_green,f"[!] Starting the scan >> {date
 print(Colorate.Horizontal(Colors.white_to_blue,f"[!] Starting the scan >> {target}",2))
 enter()
 try:
-    for port in range(1,int(ports)):
+    for port in range(1,int(ports) + 1):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         socket.setdefaulttimeout(float(speed))
-        result = s.connect_ex((target,port + 1))
+        result = s.connect_ex((target,port))
         if result == 0:
             print(Fore.GREEN + f"[+] Port {port} is open" + Fore.RESET)
             opened = opened + 1
@@ -62,8 +62,8 @@ try:
         s.close()
     if opened == 0:
         print(Fore.RED + f"[-] The host [{target}] does not have any opened port!" + Fore.RESET)
-        time.sleep(10)
-        exit()
+    time.sleep(5)
+    exit()
 except KeyboardInterrupt:
         enter()
         error("Exiting Program by Shortcut CTRL-C!",option=1)
